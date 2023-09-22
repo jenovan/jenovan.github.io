@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>top du top 10</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .containerGeneral {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        font-family: Oswald;
+      }
+      .containerPeople {
+        width: 87%;
+        margin: 0 auto;
+        margin-top: -60px;
+        display: contents;
+      }
+      .addPeopleButton {
+        width: 48%;
+        margin: 0 auto;
+        border: 1px solid black;
+        border-radius: 15px;
+        height: 25px;
+        display: inline-table;
+        padding-top: 5px;
+        text-align: center;
+        background-color: darkseagreen;
+      }
+
+      .addPeopleInput {
+        margin: 0 auto;
+        height: 25px;
+        width: 47%;
+        text-align: center;
+        border-radius: 15px;
+        border: 1px solid black;
+      }
+      .addPeoplePopup {
+        width: 50%;
+        margin: 0 auto;
+        display: contents;
+        height: 80px;
+      }
+      .addPeopleConfirm {
+        width: 100px;
+        margin: 0 auto;
+        display: none;
+        height: 40px;
+        background-color: aqua;
+      }
+
+      .questionCard {
+        display: none;
+        background-color: transparent;
+        width: 85%;
+        height: 85%;
+        z-index: 3;
+        line-height: 1.3;
+        font-size: 1.9rem;
+        perspective: 1000px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+      }
+      .innerQuestionCard {
+        position: relative;
+        width: 98%;
+        height: 98%;
+        text-align: center;
+        background-color: cadetblue;
+        border-radius: 15px;
+        border: 5px solid black;
+        /*  transition: transform 0.6s;
+         transform-style: preserve-3d;*/
+        box-shadow: 11px 11px 6px 0px rgba(0, 0, 0, 0.4);
+      }
+
+      /*.questionCard:hover .innerQuestionCard {
+         transform: rotateY(180deg);
+       }*/
+
+      .questionCard:hover .innerQuestionCard {
+        /*     transform: rotateY(180deg);*/
+      }
+
+      .questionFront,
+      .questionBack {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 15px;
+      }
+
+      .questionFront {
+        color: black;
+      }
+
+      .questionBack {
+        color: white;
+        /*    transform: rotateY(180deg);*/
+      }
+
+      .playerCard {
+        background-color: transparent;
+        width: 46%;
+        height: 50px;
+        z-index: 5;
+        margin: 5px;
+        /*  perspective: 1000px;*/
+        border-radius: 15px;
+        display: inline-block;
+        box-shadow: 6px 6px 6px 0px rgba(0, 0, 0, 0.2);
+        width: 200px;
+        height: 255px;
+        border: 1px solid;
+        text-align: left;
+        position: relative;
+        border-radius: 10px;
+        /* Set the transition effects */
+        -webkit-transition: -webkit-transform 0.4s;
+        -moz-transition: -moz-transform 0.4s;
+        -o-transition: -o-transform 0.4s;
+        transition: transform 0.4s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+      }
+
+      .playerCard.flipped {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+      }
+
+      .innerPlayerCard {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        background-color: orange;
+        text-align: center;
+        /*    transition: transform 0.6s;
+         transform-style: preserve-3d;*/
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 200px;
+        height: 255px;
+        border: 1px solid;
+        text-align: left;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.5s ease-in;
+        -moz-transition: all 0.5s ease-in;
+        -webkit-transition: all 0.5s ease-in;
+        transform: rotateY(0);
+        -moz-transform: rotateY(0);
+        -webkit-transform: rotateY(0);
+        display: inline-block;
+      }
+
+      .playerCard:hover .innerPlayerCard {
+        /*  transform: rotateY(180deg);*/
+      }
+
+      .playerFront,
+      .playerBack {
+        display: block;
+        height: 100%;
+        width: 100%;
+        line-height: 260px;
+        color: white;
+        text-align: center;
+        font-size: 4em;
+        position: absolute;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+
+        box-shadow: 3px 5px 20px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      .playerFront {
+        color: black;
+      }
+
+      .playerBack {
+        /* display: none;
+         color: white;
+               transform: rotateY(180deg);*/
+      }
+
+      .playerBack {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        overflow-y: hidden;
+        background: #a51382;
+        color: #fff;
+        font-size: 20px;
+        transition: all 0.5s ease-in;
+        -moz-transition: all 0.5s ease-in;
+        -webkit-transition: all 0.5s ease-in;
+        transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -webkit-transform: rotateY(-180deg);
+        -webkit-perspective: 1000px;
+        text-decoration: none;
+        opacity: 0;
+      }
+
+      .player {
+        text-align: center;
+        height: auto;
+        padding-top: 5px;
+        font-size: 1.5rem;
+      }
+
+      .newCard {
+        margin-top: 50px;
+        margin-bottom: 25px;
+      }
+
+      .newCardPicture {
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 120px;
+        border: 5px solid black;
+        background-color: burlywood;
+        border-radius: 15px;
+        margin: 0 auto;
+        width: 70%;
+        box-shadow: 11px 11px 6px 0px rgba(0, 0, 0, 0.4);
+        background-position: center;
+      }
+
+      .questionFrontText {
+        padding: 10px;
+      }
+
+      .newCardText {
+        padding: 10px;
+        position: relative;
+        font-size: 2em;
+        top: -90px;
+        height: 0px;
+      }
+      .innerQuestionCardCross {
+        text-align: right;
+        padding-right: 15px;
+        padding-top: 10px;
+        font-weight: bold;
+      }
+
+      .addPeopleContainer {
+        width: 85%;
+        display: flex;
+        margin: 0 auto;
+      }
+
+      .gameDuration {
+        border-bottom: 2px solid black;
+        display: inline-flex;
+        width: 83%;
+      }
+
+      .gameDurationDot {
+        width: 8%;
+        font-size: 2rem;
+        top: -82px;
+        display: inline-block;
+        text-align: center;
+        height: 26px;
+        position: relative;
+      }
+
+      .gameDurationJerry {
+        background-image: url(jerry.gif);
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: 1;
+        background-position: center;
+        height: 50px;
+        width: 50px;
+        margin-left: 16px;
+        top: -58px;
+        text-align: left;
+        position: relative;
+      }
+
+      .watchMode {
+        background-image: url(watchMode.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 40px;
+        width: 40px;
+        display: inline-flex;
+        top: -58px;
+        text-align: left;
+        position: relative;
+        display: none;
+      }
+
+      .gameMode {
+        background-image: url(gameMode1.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 40px;
+        width: 40px;
+        display: inline-flex;
+        margin-left: 16px;
+        top: -58px;
+        text-align: left;
+        position: relative;
+        display: none;
+      }
+
+      @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700);
+
+      body {
+        font-family: "Roboto Slab", serif;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1.4em;
+        color: #333;
+        background-color: darkslategrey;
+      }
+
+      input,
+      button {
+        font-family: "Roboto Slab", serif;
+        font-weight: 300;
+        font-size: 16px;
+        border: 0;
+        padding: 3px 5px;
+        border-radius: 3px;
+      }
+
+      h1 {
+        margin: 0.5em 0 1em 0;
+        font-size: 1.8em;
+        font-weight: 700;
+        color: #096aa3;
+      }
+
+      h2,
+      h3 {
+        font-weight: bold;
+      }
+
+      p {
+        margin-bottom: 1em;
+      }
+
+      .animation {
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+      }
+
+      .wrapper {
+        width: 80%;
+        margin: 0 auto;
+        background: #fff;
+      }
+
+      .wrapper.cards {
+        background: 0;
+        display: block;
+        width: 88%;
+      }
+
+      .container {
+        position: relative;
+        width: 45%;
+        height: 60px;
+        margin: 5px;
+        display: inline-block;
+        /* Set the depth of the elements */
+        -webkit-perspective: 800px;
+        -moz-perspective: 800px;
+        -o-perspective: 800px;
+        perspective: 800px;
+      }
+
+      .card {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        line-height: 1.4;
+        cursor: pointer;
+
+        /* Set the transition effects */
+        -webkit-transition: -webkit-transform 0.4s;
+        -moz-transition: -moz-transform 0.4s;
+        -o-transition: -o-transform 0.4s;
+        transition: transform 0.4s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+      }
+
+      .card.flipped {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+      }
+
+      .card .front,
+      .card .back {
+        display: block;
+        height: 100%;
+        width: 100%;
+        color: white;
+        text-align: center;
+        font-size: 1.3em;
+        position: absolute;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+
+        box-shadow: 3px 5px 20px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      .card .back {
+        width: 94%;
+        padding-left: 3%;
+        padding-right: 3%;
+        font-size: 2em;
+        text-align: center;
+        line-height: 65px;
+      }
+
+      .formItem:first-child {
+        margin-top: 20px;
+      }
+
+      .card .back label {
+        display: inline-block;
+        width: 70px;
+        text-align: left;
+      }
+
+      .card .front {
+        background: #222222;
+      }
+
+      .card .back {
+        background: #444444;
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+      }
+
+      .cardTitle {
+        font-size: 1.4em;
+        line-height: 1.2em;
+        margin: 0;
+      }
+
+      .content {
+        padding: 4%;
+        font-weight: 100;
+        text-align: left;
+      }
+
+      button.btnSend {
+        display: inline-block;
+        min-width: 100px;
+        padding: 3px 5px;
+        margin-top: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        color: #03446a;
+        background: #fff;
+        border: 0;
+        border-radius: 3;
+      }
+
+      .playerRank {
+        font-size: 1em;
+      }
+
+      .containerMode {
+        margin-top: -10px;
+        height: 10px;
+      }
+
+      /* SWITCH BUTTON CSS */
+
+      .toggle-button-cover {
+        display: block;
+        position: relative;
+        width: 100px;
+        top: -35px;
+        margin: 0 auto;
+        height: 50px;
+        box-sizing: border-box;
+      }
+
+      .button-cover {
+        /*   height: 100px;*/
+        /* margin: 20px; */
+
+        /* box-shadow: 0 10px 20px -8px #c5d6d6; */
+        border-radius: 4px;
+      }
+
+      .button-cover:before {
+        counter-increment: button-counter;
+        content: counter(button-counter);
+        position: absolute;
+        right: 0;
+        display: none;
+        bottom: 0;
+        color: #d7e3e3;
+        font-size: 12px;
+        line-height: 1;
+        padding: 5px;
+      }
+
+      .button-cover,
+      .knobs,
+      .layer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .button {
+        position: relative;
+        width: 85px;
+        height: 45px;
+        box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.4);
+        margin: -20px auto 0 auto;
+        overflow: hidden;
+      }
+
+      .button.r,
+      .button.r .layer {
+        border-radius: 100px;
+      }
+
+      .button.b2 {
+        border-radius: 2px;
+      }
+
+      .checkbox {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 3;
+      }
+
+      .knobs {
+        z-index: 2;
+      }
+
+      .layer {
+        width: 100%;
+        background-color: #ebf7fc;
+        transition: 0.3s ease all;
+        z-index: 1;
+      }
+
+      /* Button 1 */
+      #button-1 .knobs:before {
+        content: "watch mode";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 30px;
+        height: 20px;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 1;
+        padding: 9px 4px;
+        background-color: #03a9f4;
+        border-radius: 50%;
+        transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+      }
+
+      #button-1 .checkbox:checked + .knobs:before {
+        content: "game mode";
+        left: 42px;
+        background-color: #f44336;
+      }
+
+      #button-1 .checkbox:checked ~ .layer {
+        background-color: #fcebeb;
+      }
+
+      #button-1 .knobs,
+      #button-1 .knobs:before,
+      #button-1 .layer {
+        transition: 0.3s ease all;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--  <div class="container">
+        <div class="card">
+          <div class="front"><h2>Sobre</h2></div>
+          <div class="back">
+            <div class="content">
+              <h3 class="cardTitle">Quem eu sou?</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+                sodales, mi ac vulputate blandit, libero nulla bibendum quam.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+-->
+
+    <div class="containerGeneral">
+      <div class="newCard">
+        <div class="newCardPicture"></div>
+        <div class="newCardText">pioche une carte !</div>
+      </div>
+      <div class="gameDurationContainer">
+        <div class="gameDuration"></div>
+      </div>
+      <div class="gameDurationJerry"></div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="gameDurationDot">.</div>
+      <div class="containerMode">
+        <div class="watchMode"></div>
+        <div class="gameMode"></div>
+        <div class="toggle-button-cover">
+          <div class="button-cover">
+            <div class="button r" id="button-1">
+              <input type="checkbox" class="checkbox" />
+              <div class="knobs"></div>
+              <div class="layer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="questionCard">
+        <div class="innerQuestionCard">
+          <div class="innerQuestionCardCross">X</div>
+          <div class="questionFront"></div>
+          <div class="questionBack"></div>
+        </div>
+      </div>
+      <div class="containerPeople">
+        <div class="wrapper cards"></div>
+      </div>
+    </div>
+    <div class="addPeopleContainer">
+      <div class="addPeopleButton">Ajouter un joueur</div>
+
+      <div class="addPeoplePopup">
+        <input
+          type="text"
+          class="addPeopleInput"
+          value=""
+          placeholder="ajouter un joueur"
+        />
+        <div class="addPeopleConfirm"></div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    var game = [{}];
+    var peopleInput = "";
+    var peopleNumber = 0;
+    var questionIndex = 0;
+    var levelIndex = 0;
+    var watchMode = "true";
+    var numberOfPlayer = 0;
+    var playerRanking = 1;
+    var compareAnswer = [];
+    var compareAnswerSort = [{}];
+    var rankedNumberOfCard = [];
+    let animate = true;
+    var questions = [
+        "Classez ces super-pouvoirs par ordre de préférence pour une journée : voler, invisibilité, téléportation, contrôle des pensées, parler aux animaux.",
+        "Sur une échelle de 1 à 10, à quel point êtes-vous doué pour danser comme personne ne regarde ?",
+        "Classez ces animaux par ordre de 'mignonitude' : chaton, chiot, bébé panda, caneton, écureuil.",
+        "À quel point votre talent pour imiter des accents étrangers est-il hilarant, de 1 (pas du tout) à 10 (complètement hilarant) ?",
+        "Combien de grimaces différentes pouvez-vous faire en une minute, de 1 (une seule) à 10 (une multitude) ?",
+        "Notez votre niveau de 'danse de la pluie' sur une échelle de 1 à 10 en termes d'efficacité supposée pour faire venir la pluie.",
+        "Classez les odeurs de fromage par ordre de préférence, de 1 (camembert) à 10 (bleu fort) en termes de délicatesse.",
+        "Sur une échelle de 1 à 10, à quel point vous sentez-vous capable de raconter une blague vraiment nulle qui fait rire tout le monde ?",
+        "Combien de temps pouvez-vous rester sérieux tout en essayant de ne pas rire lors d'une séance de chatouilles, de 1 (quelques secondes) à 10 (indomptable) ?",
+        "Notez votre capacité à faire des bruits bizarres, comme imiter le cri d'un singe ou le grincement d'une porte, de 1 (aucun talent) à 10 (professionnel du bruitage).",
+        "À quel point seriez-vous un super-héros médiocre, de 1 à 10 ?",
+        "Classez ces légumes par ordre d'attrait pour devenir un super-légume : carotte, brocoli, épinard, concombre, betterave.",
+        "Évaluez votre capacité à résoudre un rubik's cube en moins de 5 minutes, de 1 (impossible) à 10 (c'est dans la poche).",
+        "Sur une échelle de 1 à 10, à quel point seriez-vous en tant que coach de vie pour les poissons rouges ?",
+        "À quel point vos talents de danseur ressemblent-ils à une girafe en train de patiner, de 1 (pas du tout) à 10 (parfaitement) ?",
+        "Classez ces inventions inutiles par ordre de génie : chaussettes chauffantes, parapluie pour chaussures, oreiller avec un compartiment pour collations, chapeau avec une paille intégrée, réveil qui diffuse l'odeur de bacon.",
+        "Évaluez la probabilité que vous deviez être sauvé par un chaton dans une situation de danger, de 1 (impossible) à 10 (hautement probable).",
+        "Sur une échelle de 1 à 10, à quel point seriez-vous une mascotte d'équipe de sport énergique mais maladroite ?",
+        "Notez votre capacité à faire une impression parfaite d'un bruit de périscope de sous-marin, de 1 (bruit étrange) à 10 (devenir la bande-son de l'océan).",
+        "Classez ces activités de détente par ordre de relaxation : regarder un cactus, compter les étoiles le jour, lire un dictionnaire, méditer dans un hammam, faire des ricochets sur un lac.",
+        "Évaluez votre talent pour donner des noms aux objets inanimés, de 1 (aucune créativité) à 10 (expert en anthropomorphisme).",
+        "À quel point seriez-vous doué pour faire des jeux de mots terribles, de 1 (incompréhensible) à 10 (le roi des jeux de mots) ?",
+        "Sur une échelle de 1 à 10, à quel point votre capacité à ignorer les blagues de jeu de mots est-elle impressionnante ?",
+        "Notez votre niveau de préparation pour une invasion de zombies, de 1 (pas prêt du tout) à 10 (déjà construit une forteresse).",
+        "Classez ces odeurs de cuisine par ordre d'attirance : pizza fraîchement cuite, bacon grillé, popcorn au caramel, sushis, fromage fondu.",
+        "Évaluez votre capacité à faire rire un perroquet, de 1 (pas drôle du tout) à 10 (le roi de la comédie aviaire).",
+        "À quel point seriez-vous un enquêteur de crimes maladroit, de 1 à 10 ?",
+        "Sur une échelle de 1 à 10, à quel point seriez-vous un arbitre impartial dans un concours de chatons mignons ?",
+        "Notez votre talent pour faire des bruits d'animaux bizarres, de 1 (aucun talent) à 10 (zoo ambulant).",
+        "Classez ces stratégies de défense personnelle par ordre d'efficacité : crier 'Poisson rouge !', faire la danse de la macarena, simuler une crise existentielle, s'enfuir en zigzaguant, offrir des biscuits.",
+        "Évaluez votre capacité à converser avec les plantes, de 1 (zéro communication) à 10 (parle couramment la botanique).",
+        "À quel point seriez-vous un expert en résolution de disputes entre les légumes, de 1 à 10 ?",
+        "Sur une échelle de 1 à 10, à quel point seriez-vous bon pour entraîner des pingouins à voler ?",
+        "Notez votre talent pour faire des imitations de célébrités décalées, de 1 (incompréhensible) à 10 (académie d'imitation).",
+        "Classez ces méthodes pour échapper à une conversation ennuyeuse par ordre d'efficacité : prétendre être somnambule, inventer une urgence dentaire, parler en morse, invoquer un extraterrestre, se cacher sous la table.",
+        "Évaluez votre capacité à persuader un chat de devenir votre agent secret, de 1 (mission impossible) à 10 (chat espion professionnel).",
+        "À quel point seriez-vous doué pour devenir un expert en détecteur de mensonges, de 1 à 10 ?",
+        "Sur une échelle de 1 à 10, à quel point seriez-vous bon pour apprendre à un escargot à faire de la vitesse ?",
+        "Notez votre niveau de talent pour enseigner aux poissons à nager en ligne droite, de 1 (poisson perdu) à 10 (championnat de natation aquatique).",
+        "Classez ces astuces pour éviter de perdre vos clés par ordre d'efficacité : les attacher à un pigeon voyageur, utiliser une pelle de détecteur de métaux, les confier à un lutin gardien, les transformer en bijoux de la couronne, faire une danse de la clé perdue.",
+        "Évaluez votre capacité à former un comité de lutte contre les licornes, de 1 (inexistantes) à 10 (à la pointe de la recherche en licornologie).",
+        "À quel point seriez-vous doué pour jouer au football avec des dinosaures, de 1 à 10 ?",
+        "Sur une échelle de 1 à 10, à quel point seriez-vous un explorateur intrépide de la dimension des chaussettes perdues ?",
+        "Quels sont les 10 noms de super-héros les moins susceptibles de sauver le monde ?",
+        "Citez 10 façons de tromper un détecteur de mensonges (à des fins humoristiques, bien sûr).",
+        "Donnez 10 excuses farfelues pour expliquer pourquoi vous êtes en retard à une réunion importante.",
+        "Nommez 10 objets du quotidien que vous aimeriez voir dotés de capacités de conversation.",
+        "Énumérez 10 moyens inattendus d'utiliser une chaise de bureau en dehors du bureau.",
+        "Quels sont les 10 aliments les plus susceptibles de se battre dans une arène alimentaire ?",
+        "Citez 10 raisons farfelues pour lesquelles les chats dirigeraient un gouvernement mondial.",
+        "Donnez 10 noms de films fictifs sur des compétitions de lancé de spaghettis.",
+        "Nommez 10 endroits les plus bizarres où vous aimeriez organiser un pique-nique.",
+        "Énumérez 10 choses que les extraterrestres pourraient dire s'ils atterrissaient sur Terre en ce moment.",
+        "Quels sont les 10 bruits les plus étranges que vous pouvez faire avec votre bouche ?",
+        "Citez 10 excuses créatives pour ne pas faire votre lit le matin.",
+        "Donnez 10 noms de maladies imaginaires que vous pourriez inventer pour échapper au travail.",
+        "Nommez 10 choses que vous ne devriez jamais dire à un robot de cuisine intelligent.",
+        "Énumérez 10 usages inattendus pour une échelle télescopique en dehors du bricolage.",
+        "Quels sont les 10 superpouvoirs les moins utiles que vous aimeriez posséder ?",
+        "Citez 10 excuses farfelues pour justifier le vol d'un panier de pingouins en peluche dans un magasin.",
+        "Donnez 10 noms de boissons inventées par des extraterrestres pour les humains.",
+        "Nommez 10 compétitions olympiques totalement absurdes que vous aimeriez voir.",
+        "Énumérez 10 choses que les poissons pourraient penser en regardant des pêcheurs depuis l'eau.",
+        "Quels sont les 10 objets les plus étranges que vous pourriez utiliser comme arme dans une bataille de nourriture ?",
+        "Citez 10 excuses farfelues pour expliquer pourquoi vous avez accidentellement mis le feu à votre cuisine.",
+        "Donnez 10 noms de restaurants fictifs avec des menus hilarants.",
+        "Nommez 10 choses que vous ne devriez jamais dire à un robot de service dans un restaurant.",
+        "Énumérez 10 utilisations inattendues pour une paire de chaussettes en dehors du portage.",
+        "Quels sont les 10 jeux de société les plus étranges que vous pourriez inventer ?",
+        "Citez 10 excuses farfelues pour justifier pourquoi vous avez accidentellement pris un éléphant pour votre animal de compagnie.",
+        "Donnez 10 noms de parcs à thème fous que vous aimeriez visiter.",
+        "Nommez 10 choses que les grenouilles pourraient dire en organisant une manifestation.",
+        "Énumérez 10 utilisations inattendues pour un parapluie en dehors de la pluie.",
+        "Quels sont les 10 superpouvoirs les plus maladroits que vous pourriez avoir ?",
+        "Citez 10 excuses farfelues pour justifier pourquoi vous avez accidentellement pris un bus spatial pour aller au travail.",
+        "Donnez 10 noms de pays imaginaires avec des lois étranges.",
+        "Nommez 10 choses que les poupées en peluche pourraient discuter la nuit quand personne ne les regarde.",
+        "Énumérez 10 utilisations inattendues pour une tronçonneuse en dehors de la coupe du bois.",
+        "Quels sont les 10 objets les plus bizarres que vous pourriez utiliser pour jouer au baseball ?",
+        "Citez 10 excuses farfelues pour justifier pourquoi vous avez accidentellement construit une pyramide dans votre jardin.",
+        "Donnez 10 noms de monstres imaginaires que vous pourriez invoquer lors d'une fête costumée.",
+        "Nommez 10 choses que les chiens pourraient penser en observant les humains.",
+        "Énumérez 10 utilisations inattendues pour une baignoire en dehors du bain.",
+        "Quels sont les 10 superhéros les plus improbables que vous pourriez créer ?",
+        "Citez 10 excuses farfelues pour justifier pourquoi vous avez accidentellement transformé votre maison en un château médiéval.",
+        "Donnez 10 noms de jeux vidéo fictifs avec des scénarios hilarants.",
+        "Nommez 10 choses que les écureuils pourraient discuter en organisant une conférence.",
+        "Énumérez 10 utilisations inattendues pour un parapluie en dehors de la pluie.",
+        "Quels sont les 10 objets les plus étranges que vous pourriez utiliser pour jouer au football ?",
+        "Citez 10 excuses farfelues pour justifier pourquoi vous avez accidentellement créé une armée de bonhommes de neige dans votre jardin en été.",
+        "Donnez 10 noms de planètes imaginaires avec des caractéristiques inhabituelles.",
+        "Nommez 10 choses que les poissons pourraient penser en observant les plongeurs.",
+        "Énumérez 10 utilisations inattendues pour une baignoire en dehors du bain.",
+      ],
+      ranQuestions = [],
+      iQ = questions.length,
+      jQ = 0;
+
+    while (iQ--) {
+      jQ = Math.floor(Math.random() * (iQ + 1));
+      ranQuestions.push(questions[jQ]);
+      questions.splice(jQ, 1);
+    }
+
+    var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      ranNums = [],
+      i = nums.length,
+      j = 0;
+
+    while (i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      ranNums.push(nums[j]);
+      nums.splice(j, 1);
+    }
+
+    $(".addPeopleButton").click(function () {
+      if ($(".addPeopleInput").val() != "") {
+        peopleInput = $(".addPeopleInput").val();
+        game.push({ name: peopleInput, number: ranNums[peopleNumber] });
+        peopleNumber = peopleNumber + 1;
+        $(".addPeopleInput").val("");
+        $(".cards").append(
+          "<div class='container'><div class='card'><div class='front' id='playerId" +
+            peopleNumber +
+            "'>" +
+            game[peopleNumber].name +
+            "</div><div class='back'>" +
+            game[peopleNumber].number +
+            "<div class='content'></div></div></div></div>"
+        );
+        /*    $(".containerPeople").append(
+              "<div class='playerCard'><div class='innerPlayerCard'><div class='player playerFront' id='playerId" +
+                peopleNumber +
+                "'>" +
+                game[peopleNumber].name +
+                "</div><div class='player playerBack'>" +
+                game[peopleNumber].number +
+                "</div></div></div>"
+            );*/
+      }
+    });
+    $(document).on("click", ".playerCard", function () {
+      $this = $(this);
+      if ($this.hasClass("active")) {
+      } else {
+        $(".playerCard").removeClass("active");
+        $(this).addClass("active");
+      }
+
+      if (watchMode == "true") {
+        $("#playerId");
+        // console.log($("#playerId"));
+        // console.log("in watchmode");
+      }
+    });
+
+    $(".newCardPicture").click(function () {
+      $(".questionFront").empty();
+      $(".questionCard").css("display", "block");
+      $(".questionFront").append(
+        "<div class='questionFrontText' >" +
+          ranQuestions[questionIndex] +
+          "</div>"
+      );
+      questionIndex = questionIndex + 1;
+    });
+    $(".newCardText").click(function () {
+      $(".questionFront").empty();
+      $(".questionCard").css("display", "block");
+      $(".questionFront").append(
+        "<div class='questionFrontText' >" +
+          ranQuestions[questionIndex] +
+          "</div>"
+      );
+      questionIndex = questionIndex + 1;
+    });
+
+    $("#button-1").click(function () {
+      if ($("#button-1").hasClass("watchModeFalse")) {
+        $("#button-1").removeClass("watchModeFalse");
+        $("body").animate({ backgroundColor: "#2F4F4F" });
+        watchMode = "true";
+      } else {
+        $("#button-1").addClass("watchModeFalse");
+        watchMode = "false";
+        $("body").animate({ backgroundColor: "#8B0000" });
+      }
+    });
+
+    /*   $(".watchMode").click(function () {
+      watchMode = "true";
+      console.log(watchMode);
+      $(".watchMode").css("opacity", "1");
+      $(".gameMode").css("opacity", "0.3");
+    });
+    $(".gameMode").click(function () {
+      watchMode = "false";
+      console.log(watchMode);
+      $(".watchMode").css("opacity", "0.3");
+      $(".gameMode").css("opacity", "1");
+    });*/
+    $(".innerQuestionCardCross").click(function () {
+      $(".questionCard").css("display", "none");
+    });
+    $("#playerId1").click(function () {
+      console.log("playerid1");
+    });
+
+    $(".card").click(function () {
+      $(this).toggleClass("flipped");
+    });
+    $(".playerCard").click(function () {
+      $(this).toggleClass("flipped");
+    });
+
+    $(document).on("click", ".card", function () {
+      if (watchMode == "true") {
+        $(this).toggleClass("flipped");
+      } else {
+        if ($(".front.selected").length == $(".front").length) {
+          console.log("terminé");
+          rankedNumberOfCard = ranNums.slice(0, numberOfPlayer);
+          // rankedNumberOfCard.sort();
+          compareAnswerSort = compareAnswer[1]; // Supposons que vous souhaitez trier par rapport à l'objet à l'index 1
+
+          compareAnswer.sort(function (a, b) {
+            return a.rank - b.rank;
+          });
+          console.log(compareAnswer);
+
+          /* rankedNumberOfCard.sort(function (a, b) {
+                return a - b;
+              });*/
+          for (i = 0; i <= compareAnswer.length - 2; i++) {
+            var objetSpecifique = compareAnswer[i]; // Accédez à l'objet à l'index spécifié
+            var valeurObjet = objetSpecifique.number; // Accédez à la propriété "valeur" de l'objet
+            console.log(
+              "*** compareAnswer[i].number : " + compareAnswer[i].number
+            );
+
+            console.log(
+              "*** compareAnswer[i + 1].number : " + compareAnswer[i + 1].number
+            );
+            var indexNext = i + 1;
+            if (compareAnswer[i].number < compareAnswer[i + 1].number) {
+              console.log("juste !!!!");
+            } else {
+              console.log("faux !!!");
+            }
+          }
+        }
+      }
+    });
+
+    $(document).on("click", ".front", function () {
+      var idSelectedPlayer = $(this).attr("id");
+      var idSelectedPlayerOnly = idSelectedPlayer.slice(-1);
+      var backCardPlayerNumber = $("#" + idSelectedPlayer)
+        .next()
+        .text();
+      var backCardPlayerNumberInteger;
+      backCardPlayerNumberInteger = parseInt(backCardPlayerNumber);
+      if (watchMode != "true") {
+        if ($(this).hasClass("selected")) {
+          var rankToDelete = $(
+            "#playerId" + idSelectedPlayerOnly + " span"
+          ).text();
+          rankToDelete = rankToDelete.slice(-1);
+          rankToDelete = parseInt(rankToDelete);
+          console.log("rank to delete : " + rankToDelete);
+          compareAnswer = $.grep(compareAnswer, function (objet) {
+            return objet.rank !== rankToDelete;
+          });
+          $("#" + idSelectedPlayer)
+            .children()
+            .remove();
+          $(this).removeClass("selected");
+
+          if (playerRanking > 1) {
+            playerRanking = playerRanking - 1;
+          }
+        } else {
+          $(this).toggleClass("selected");
+          $("#" + idSelectedPlayer).append(
+            "<br/><span class='playerRank' id='playerRankId" +
+              playerRanking +
+              "'>" +
+              playerRanking +
+              "</span>"
+          );
+          numberOfPlayer = $(".card").length;
+
+          console.log("number of player: " + numberOfPlayer);
+          playerRanking = playerRanking + 1;
+
+          //var indexOfArrayToReplace = compareAnswer.indexOf(idSelectedPlayer); // 👉️  0
+          var newAnswer = {
+            idPlayer: idSelectedPlayerOnly,
+            rank: playerRanking - 1,
+            number: backCardPlayerNumberInteger,
+            rankedNumber: rankedNumberOfCard,
+          };
+
+          compareAnswer.splice(idSelectedPlayerOnly, 0, newAnswer);
+
+          /*  if (indexOfArrayToReplace !== -1) {
+                compareAnswer.splice(idSelectedPlayer, 1);
+              }*/
+        }
+      }
+      //console.log(playerRanking);
+    });
+
+    $(document).ready(function () {
+      //compareAnswer.shift(); // Supprime le premier élément du tableau
+    });
+  </script>
+</html>
